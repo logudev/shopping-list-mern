@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server-i": "npm i",
+    "client-i": "npm i --prefix client",
+    "setup": "npm run server-i && npm run client-i"
   },
   "author": "Logaraja D",
   "license": "MIT",
