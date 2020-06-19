@@ -13,7 +13,7 @@ export const getItems = () => async (dispatch) => {
 
 export const deleteItem = (id) => async (dispatch) => {
   dispatch(loadingItems(true));
-  const response = await axios.delete(`/api/items/${id}`);
+  await axios.delete(`/api/items/${id}`);
   dispatch({
     type: DELETE_ITEM,
     payload: id,

@@ -6,7 +6,6 @@ import {
   Button,
   Spinner,
 } from "reactstrap";
-import { v4 as uuid } from "uuid";
 import { connect } from "react-redux";
 import { getItems, deleteItem } from "../redux/actions/itemActions";
 import ItemModal from "./ItemModal";
@@ -30,7 +29,6 @@ class ShoppingList extends React.Component {
     };
     return (
       <Container>
-        {/* <ClipLoader size={50} color={"#123abc"} loading={loading} /> */}
         {loading && <Spinner color="info" style={spinnerStyle} />}
         <ItemModal />
         <ListGroup>
@@ -42,7 +40,6 @@ class ShoppingList extends React.Component {
                   color="danger"
                   size="sm"
                   onClick={() => {
-                    debugger;
                     this.props.deleteItem(_id);
                   }}
                 >
