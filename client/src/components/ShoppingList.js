@@ -1,62 +1,70 @@
 import React from "react";
-import { Container, ListGroup, ListGroupItem, Button } from "reactstrap";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import {
+  Container,
+  ListGroup,
+  ListGroupItem,
+  Button,
+  Spinner,
+} from "reactstrap";
 import { v4 as uuid } from "uuid";
+import { connect } from "react-redux";
+import { getItems, deleteItem } from "../redux/actions/itemActions";
+import ItemModal from "./ItemModal";
+import PropTypes from "prop-types";
 
 class ShoppingList extends React.Component {
-  state = {
-    items: [
-      { id: uuid(), name: "Eggs" },
-      { id: uuid(), name: "Milk" },
-      { id: uuid(), name: "Oats" },
-      { id: uuid(), name: "Banana" },
-    ],
-  };
+  componentDidMount() {
+    this.props.getItems();
+  }
 
   render() {
-    const { items } = this.state;
+    const { items, loading } = this.props.item;
+    const spinnerStyle = {
+      width: "4rem",
+      height: "4rem",
+      position: "absolute",
+      margin: "0 auto",
+      left: "50%",
+      top: "30%",
+      zIndex: "10",
+    };
     return (
       <Container>
-        <Button
-          color="dark"
-          style={{ marginBottom: "2rem" }}
-          onClick={() => {
-            const itemName = prompt("Enter an item name");
-            if (itemName) {
-              this.setState((state) => ({
-                items: [...state.items, { id: uuid(), name: itemName }],
-              }));
-            }
-          }}
-        >
-          Add Item
-        </Button>
+        {/* <ClipLoader size={50} color={"#123abc"} loading={loading} /> */}
+        {loading && <Spinner color="info" style={spinnerStyle} />}
+        <ItemModal />
         <ListGroup>
-          <TransitionGroup className="shopping-list">
-            {items.map(({ id, name }) => (
-              <CSSTransition key={id} timeout={500} classNames="fade">
-                <ListGroupItem>
-                  <Button
-                    className="remove-btn"
-                    color="danger"
-                    size="sm"
-                    onClick={() =>
-                      this.setState((state) => ({
-                        items: this.state.items.filter((it) => it.id !== id),
-                      }))
-                    }
-                  >
-                    &times;
-                  </Button>
-                  {name}
-                </ListGroupItem>
-              </CSSTransition>
+          {items &&
+            items.map(({ _id, name }) => (
+              <ListGroupItem key={_id}>
+                <Button
+                  className="remove-btn"
+                  color="danger"
+                  size="sm"
+                  onClick={() => {
+                    debugger;
+                    this.props.deleteItem(_id);
+                  }}
+                >
+                  &times;
+                </Button>
+                {name}
+              </ListGroupItem>
             ))}
-          </TransitionGroup>
         </ListGroup>
       </Container>
     );
   }
 }
 
-export default ShoppingList;
+const mapStateToProps = (state) => ({
+  item: state.item,
+  loading: state.loading,
+});
+
+ShoppingList.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  items: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);
