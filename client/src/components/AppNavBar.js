@@ -25,7 +25,10 @@ export const AppNavBar = () => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto">
               <NavItem>
-                <NavLink href="https://www.github.com/logudev" target="_blank">
+                <NavLink
+                  href="https://github.com/logudev/shopping-list-mern"
+                  target="_blank"
+                >
                   Github
                 </NavLink>
               </NavItem>
