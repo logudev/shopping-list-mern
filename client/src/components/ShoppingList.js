@@ -25,7 +25,7 @@ class ShoppingList extends React.Component {
       margin: "0 auto",
       left: "50%",
       top: "30%",
-      zIndex: "10",
+      zIndex: "1200",
     };
     return (
       <Container>
