@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Item Model
 const Item = require("../../models/Item");
+const auth = require("../../middlewares/auth");
 
 // Routes Definitions
 
@@ -29,9 +30,15 @@ router.get("/", async (req, res) => {
 
 // @desc Create a new item
 // @route POST /api/items
-// @access public
-router.post("/", async (req, res) => {
+// @access private - only authenticated users
+router.post("/", auth, async (req, res) => {
   try {
+    if (!req.body.name) {
+      return res.status(400).json({
+        success: false,
+        message: "Please enter an item name",
+      });
+    }
     const newItem = new Item({
       name: req.body.name,
     });
@@ -50,8 +57,8 @@ router.post("/", async (req, res) => {
 
 // @desc Delete an item using its id
 // @route DELETE /api/items/:id
-// @access public
-router.delete("/:id", async (req, res) => {
+// @access private - only authenticated users
+router.delete("/:id", auth, async (req, res) => {
   try {
     const idToDelete = req.params.id;
 

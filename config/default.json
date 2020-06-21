@@ -1,0 +1,4 @@
+{
+  "MONGO_URI": "mongodb+srv://logu:dravid12@logutestcluster-hyrij.mongodb.net/shoppinglist?retryWrites=true&w=majority",
+  "jwtSecret": "logd_mern_shoppinglist_jwt_secret"
+}

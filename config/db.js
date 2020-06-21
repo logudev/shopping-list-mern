@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 
-const MONGO_URI =
-  "mongodb+srv://logu:dravid12@logutestcluster-hyrij.mongodb.net/shoppinglist?retryWrites=true&w=majority";
-
-const connectToDB = async () => {
+const connectToDB = async (MONGO_URI) => {
   try {
     const conn = await mongoose.connect(MONGO_URI, {
       useCreateIndex: true,
