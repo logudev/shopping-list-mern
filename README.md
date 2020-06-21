@@ -2,7 +2,7 @@
 Shopping List App built with React, Redux, Express, Node and MongoDB, JWT - MERN stack
 
 App URL:
-hhttps://logu-shoppinglist-mern.herokuapp.com/
+https://logu-shoppinglist-mern.herokuapp.com/
 
 Heroku Deployment URL:
 https://dashboard.heroku.com/apps/logu-shoppinglist-mern
